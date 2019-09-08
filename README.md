@@ -15,12 +15,12 @@ def default_environment():
   return dict(_VARS)
   
 class ASTWhitelist(ast.NodeTransformer):
-  def __init__():
+  def __init__(self, statement):
     self.statement = statement
     
   ALLOWED = (ast.Compare, ast.BoolOp, ast.Attribute, ast.Name, ast.Load, ast.Str)
-  ALLOWED += ()
-  ALLOWED += ()
+  ALLOWED += (ast.And, ast.Or)
+  ALLOWED += (ast.Eq, ast.Gt, astGtE, ast.In, ast.In, ast.IsNot, ast.Lt, ast.LtE, ast.NotEq, ast.NotIn)
   
   def visit(self, node):
     """ """
