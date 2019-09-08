@@ -3,12 +3,39 @@
 https://github.com/python-mode/python-mode
 
 ```py
+// pymode/libs/_markerlib/markers.py
 
-_VARS = {}
+__all__ = ['default_environment', 'compile', 'interpret']
+
+import ast
+import os
+import platform
+import sys
+
+_builtin_compile = compile
+
+try:
+  from platform import python_implementation
+except ImportError:
+  if os.name == "java":
+    def python_implementation():
+      return "Jython"
+  else:
+    raise
+
+_VARS = {'sys.platform': sys.platform,
+  'python_version': '%s.%s' % sys.version_info[:2],
+  'python_full_version': sys.version.split(' ', 1)[0],
+  'os.name': os.name,
+  'platform.version': platform.version(),
+  'platform.machine': platform.machine(),
+  'platform.python_implementation': python_implementation(),
+  'extra': None
+}
 
 for var in list():
   if '' in var:
-    _VARS[] = _VARS[]
+    _VARS[var.replace('.', '_')] = _VARS[var]
     
 def default_environment():
   """ """
